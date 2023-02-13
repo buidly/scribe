@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "scribe"
+version = "0.1.0"
+description = "MX Smart contracts CLI for deployment and management"
+authors = ["Vlad Nedelcu <vlad.nedelcu@buidly.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "scribe", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = {extras = ["all"], version = "^0.7.0"}
+rich = "^12.6.0"
+toml = "^0.10.2"
+PyYAML = "^6.0"
+multiversx-sdk-cli = "^5.3.1"
+multiversx-sdk-network-providers = "^0.6.7"
+PyGithub = "^1.57"
+pygit2 = "^1.11.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+isort = "^5.12.0"
+pytest = "^7.2.1"
+pytest-mock = "^3.10.0"
+types-toml = "^0.10.8.3"
+types-PyYAML = "^6.0.12.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+scribe = "scribe.cli:app"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+extend-exclude = '''
+(
+    config.py
+    | exceptions.py
+)
+'''
+
+[tool.isort]
+profile = "hug"
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_configs = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = [
+    "multiversx_sdk_cli",
+    "multiversx_sdk_network_providers",
+]
+ignore_missing_imports = true
